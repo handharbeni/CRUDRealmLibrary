@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'realm-android'
+apply plugin: 'maven'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -20,7 +21,14 @@ android {
         }
     }
 }
-
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.groupId = 'mhandharbeni.com.crudrealmmodule'
+        pom.artifactId = 'lib-util'
+        pom.version = android.defaultConfig.versionName
+        repository(url: "file:./releases/")
+    }
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
